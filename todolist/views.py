@@ -1,6 +1,24 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+
+from .models import ListItem
 
 
 def todoList(request):
-    return render(request, 'todolist/index.html')
+    itemList = ListItem.objects.all()
+    context = {
+        'itemList': itemList,
+    }
+    return render(request, 'todolist/index.html', context)
+
+def taskView(request, taskview_id):
+    item = ListItem.objects.get(id=taskview_id)
+    context = {
+        'item': item,
+    }
+    return render(request, 'todolist/task_view.html', context)
+
+def taskAdd(request):
+    return render(request, 'todolist/task_add.html')
+
+def taskRemove(request):
+    return render(request, 'todolist/task_remove.html')
