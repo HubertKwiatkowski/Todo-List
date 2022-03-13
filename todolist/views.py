@@ -1,12 +1,14 @@
 from django.shortcuts import render
 
-from .models import ListItem
+from .models import ListItem, Tag
 
 
 def todoList(request):
+    tagList = Tag.objects.all()
     itemList = ListItem.objects.all()
     context = {
         'itemList': itemList,
+        'tagList': tagList,
     }
     return render(request, 'todolist/index.html', context)
 

@@ -4,11 +4,35 @@
 
 {% block content %}
     <h1>Todo List</h1>
-    <button><a href="#">NEW TASK</a></button>
-    <button><a href="#">REMOVE TASK</a></button>
+    <button class="big"><a href="{% url 'task_add' %}">New task</a></button>
+    <input type="search" name="search" placeholder="name, date, tag" />
+    <input class="btn" type="submit" value="Search" />
+    <button class="big">Hide done</button>
     <h2>List of things to do:</h2>
+    {% for tag in tagList %}
+        <button class="{{ tag }} small" style="background-color:{{ tag.color }}">{{ tag }}</button>
+    {% endfor %}
     {% for item in itemList %}
-        <li><a href="{% url 'taskview' item.id %}">{{ item.taskName }} expires at {{ item.taskDeadline }}</a></li>
+
+        {% if not item.taskDone %}
+
+        {% endif %}
+        <li class="phaseout">
+            <button class="small remove"><a href="{% url 'task_remove' %}"> - </a></button>
+            
+            <button class="small done"> * </button>
+            <a href="{% url 'task_view' item.id %}">{{ item.taskName }} expires at {{ item.taskDeadline }}</a>
+            {% for tag in item.taskTags.all %}
+                <button class="tag" style="background-color:{{ tag.color }}">{{ tag }}</button>
+            {% endfor %}
+        </li>
+
+        <!-- <script>
+            const btn = document.querrySelector("button");
+            const filterElement = function() {
+
+            }
+        </script> -->
     {% endfor %}
 
 {% endblock %}

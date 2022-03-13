@@ -5,9 +5,13 @@
 {% block content %}
     <h1>Task {{ item.id }}, {{ item.taskName }}</h1>
 
-    <p>{{ item.taskNote }}</p>
-
+    <p>Starting Date: {{ item.taskStartDate }}</p>
     <p>Deadline: {{ item.taskDeadline }}</p>
 
-    <a href="/">BACK</a>
+    <p>{{ item.taskNote }}</p>
+
+    <button class="big"><a href="/">Back</a></button>
+    <button class="big remove"><a href="{% url 'task_remove' %}"> - </a></button>            
+    <button class="big done"> * </button>
+
 {% endblock %}
