@@ -5,8 +5,8 @@
 {% block content %}
     <h1>Task {{ item.id }}, {{ item.taskName }}</h1>
 
-    <p>Starting Date: {{ item.taskStartDate }}</p>
-    <p>Deadline: {{ item.taskDeadline }}</p>
+    <p>Starting Date: {{ item.taskStartDate }} {{ item.taskStartTime }}</p>
+    <p>Deadline: {{ item.taskEndDate }} {{ item.taskEndTime }}</p>
 
     <p>{{ item.taskNote }}</p>
 

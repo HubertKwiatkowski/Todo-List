@@ -3,21 +3,21 @@ from colorfield.fields import ColorField
 
 
 class Tag(models.Model):
-    tagName = models.CharField(max_length=50, blank=True)
-    color = ColorField(default='#FF0000')
+    tagName = models.CharField(max_length=50)
+    tagColor = ColorField(default='#FF0000')
 
     def __str__(self):
         return self.tagName
 
 class ListItem(models.Model):
     taskName = models.CharField(max_length=200)
-    taskDone = models.BooleanField()
+    taskDone = models.BooleanField(default=False)
     taskNote = models.TextField(blank=True)
-    taskStartDate = models.DateField(auto_now=True, auto_now_add=False)
-    taskDeadline = models.DateField(auto_now=False, auto_now_add=False)
+    taskStartDate = models.DateField(blank=True)
+    taskStartTime = models.TimeField(blank=True)
+    taskEndDate = models.DateField(blank=True)
+    taskEndTime = models.TimeField(blank=True)
     taskTags = models.ManyToManyField('Tag', blank=True)
-
 
     def __str__(self):
         return self.taskName
-

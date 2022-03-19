@@ -9,8 +9,9 @@
     <input class="btn" type="submit" value="Search" />
     <button class="big">Hide done</button>
     <h2>List of things to do:</h2>
+    <button class="big"><a href="{% url 'tag_add' %}">New tag</a></button>
     {% for tag in tagList %}
-        <button class="{{ tag }} small" style="background-color:{{ tag.color }}">{{ tag }}</button>
+        <button class="{{ tag }} small" style="background-color:{{ tag.tagColor }}">{{ tag }}</button>
     {% endfor %}
     {% for item in itemList %}
 
@@ -21,9 +22,9 @@
             <button class="small remove"><a href="{% url 'task_remove' %}"> - </a></button>
             
             <button class="small done"> * </button>
-            <a href="{% url 'task_view' item.id %}">{{ item.taskName }} expires at {{ item.taskDeadline }}</a>
+            <a href="{% url 'task_view' item.id %}">{{ item.taskName }} ends at {{ item.taskEndDate }} {{ item.taskEndTime }}</a>
             {% for tag in item.taskTags.all %}
-                <button class="tag" style="background-color:{{ tag.color }}">{{ tag }}</button>
+                <button class="tag" style="background-color:{{ tag.tagColor }}">{{ tag }}</button>
             {% endfor %}
         </li>
 

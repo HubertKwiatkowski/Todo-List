@@ -3,9 +3,9 @@
 {% block title %} Add a new task {% endblock %}
 
 {% block content %}
-    <h1>Add a new task</h1>
+    <h1>Add a new tag</h1>
 
-    <form action="/task_add/" method="post">
+    <form action="/tag_add/" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input class="btn big" type="submit" value="Add">
