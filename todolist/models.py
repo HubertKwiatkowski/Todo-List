@@ -11,6 +11,7 @@ class Tag(models.Model):
 
 class ListItem(models.Model):
     taskName = models.CharField(max_length=200)
+    taskBigName = models.CharField(max_length=200)
     taskDone = models.BooleanField(default=False)
     taskNote = models.TextField(blank=True)
     taskStartDate = models.DateField(blank=True)
@@ -21,3 +22,4 @@ class ListItem(models.Model):
 
     def __str__(self):
         return self.taskName
+

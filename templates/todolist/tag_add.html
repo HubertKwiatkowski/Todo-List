@@ -5,6 +5,8 @@
 {% block content %}
     <h1>Add a new tag</h1>
 
+    {{ form.media }}
+
     <form action="/tag_add/" method="post">
         {% csrf_token %}
         {{ form.as_p }}

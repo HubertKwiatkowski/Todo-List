@@ -8,8 +8,14 @@
     <input type="search" name="search" placeholder="name, date, tag" />
     <input class="btn" type="submit" value="Search" />
     <button class="big">Hide done</button>
-    <h2>List of things to do:</h2>
+    <br>
+    <br>
+    <br>
+    <button class="big"><a href="{% url 'tags_view' %}">Tags management</a></button>
     <button class="big"><a href="{% url 'tag_add' %}">New tag</a></button>
+    <br>
+    <br>
+    <h2>List of things to do:</h2>
     {% for tag in tagList %}
         <button class="{{ tag }} small" style="background-color:{{ tag.tagColor }}">{{ tag }}</button>
     {% endfor %}
@@ -18,7 +24,7 @@
         {% if not item.taskDone %}
 
         {% endif %}
-        <li class="phaseout">
+        <li class="{% for tag in item.taskTags.all %} {{ tag }}{% endfor %}">
             <button class="small remove"><a href="{% url 'task_remove' %}"> - </a></button>
             
             <button class="small done"> * </button>

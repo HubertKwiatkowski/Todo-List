@@ -1,0 +1,18 @@
+{% extends "todolist/base.html" %}
+
+{% block title %} Tag Edit {% endblock %}
+
+{% block content %}
+    <h1>{{ tag.tagName }}</h1>
+
+    <div class="color" style="background-color: {{ tag.tagColor}};"></div>
+
+    <button class="big"><a href="/">Home</a></button>
+    <button class="big"><a href="{% url 'tags_view' %}">Back</a></button>
+    <br>
+    <br>
+    <br>
+    <button class="big"><a href="#">Save</a></button>
+    <button class="big"><a href="#">Remove</a></button>
+
+{% endblock %}

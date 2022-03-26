@@ -1,10 +1,11 @@
 from django import forms
-from .widget import DatePickerInput, TimePickerInput, DateTimePickerInput
+# from django.forms import ModelForm
+from .widget import *
 
 
-class TagForm(forms.Form):
+class TagForm(forms.ModelForm):
     tagName = forms.CharField(max_length=50, label='Tag')
-    tagColor = forms.CharField(max_length=7, label='Color', required=False)
+    tagColor = forms.CharField(max_length=7, label='Color', required=False, widget=ColorWidget)
 
 
 class ItemForm(forms.Form):

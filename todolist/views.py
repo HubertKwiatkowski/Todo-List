@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import ListItem, Tag
 from .forms import ItemForm, TagForm
@@ -53,6 +53,34 @@ def taskAdd(response):
 
     return render(response, 'todolist/task_add.html', context)
 
+def tagsView(request):
+    tagList = Tag.objects.all()
+    context = {
+        'tagList': tagList,
+    }
+    return render(request, 'todolist/tags_view.html', context)
+
+def tagView(request, tagview_id):
+    tag = Tag.objects.get(id=tagview_id)
+    context = {
+        'tag': tag,
+    }
+    return render(request, 'todolist/tag_view.html', context)
+
+def tagEdit(request, tagedit_id):
+    tag = Tag.objects.get(id=tagedit_id)
+    if request.method == 'GET':
+        form = TagForm(instance=tag)
+    else:
+        form = TagForm(request.POST, instance=tag)
+        if form.is_valid():
+            form.save()
+            return redirect('tagEdit')
+    context = {
+        'form': form,
+    }
+    return render (request, 'todolist/tag_edit.html', context)
+
 def tagAdd(response):
     if response.method == 'POST':
         form = TagForm(response.POST)
@@ -71,61 +99,6 @@ def tagAdd(response):
         }
 
     return render(response, 'todolist/tag_add.html', context)
-
-# def taskAdd(request):
-#     if request.method == 'POST':
-#         form = ItemForm(request.POST)
-#         if form.is_valid():
-#             tnav = form.cleaned_data("taskName")
-#             tddv = form.cleaned_data("taslDone")
-#             tnov = form.cleaned_data["taskNote"]
-#             tsdv = form.cleaned_data["taskStartDate"]
-#             tdlv = form.cleaned_data["taskDeadline"]
-#             newItem = ItemForm(
-#                 taskName = tnav,
-#                 taskDone = tddv,
-#                 taskNote = tnov,
-#                 taskStartDate = tsdv,
-#                 taskDeadline = tdlv)
-#             newItem.save()
-#             return HttpResponseRedirect('/')
-
-#     else:
-#         form = ItemForm()
-
-#     context = {
-#         'form': form,
-#         }
-
-#     return render(request, 'todolist/task_add.html', context)
-
-# def taskAdd(request):
-#     taskNameValue = ''
-#     taskNoteValue = ''
-#     taskStartDateValue = ''
-#     taskDeadlineValue = ''
-
-#     if request.method == 'POST':
-#         form = ItemForm(request.POST)
-#         if form.is_valid():
-#             taskNameValue = form.cleaned_data.get("taskName")
-#             taskNoteValue = form.cleaned_data.get("taskNote")
-#             taskStartDateValue = form.cleaned_data.get("taskStartDate")
-#             taskDeadlineValue = form.cleaned_data.get("taskDeadline")
-#             return HttpResponseRedirect('/')
-
-#     else:
-#         form = ItemForm()
-
-#     context = {
-#         'form': form,
-#         'taskNameValue': taskNameValue,
-#         'taskNoteValue': taskNoteValue,
-#         'taskStartDateValue': taskStartDateValue,
-#         'taskDeadlineValue': taskDeadlineValue,
-#         }
-
-#     return render(request, 'todolist/task_add.html', context)
 
 def taskRemove(request):
     return render(request, 'todolist/task_remove.html')
