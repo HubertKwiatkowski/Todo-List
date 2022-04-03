@@ -25,22 +25,24 @@ def taskAdd(response):
     if response.method == 'POST':
         form = ItemForm(response.POST)
         if form.is_valid():
-            tnav = form.cleaned_data["taskName"]
-            tddv = form.cleaned_data["taskDone"]
-            tnov = form.cleaned_data["taskNote"]
-            tsdv = form.cleaned_data["taskStartDate"]
-            tstv = form.cleaned_data["taskStartTime"]
-            tedv = form.cleaned_data["taskEndDate"]
-            tetv = form.cleaned_data["taskEndTime"]
+            tnav = form.cleaned_data["task_name"]
+            tsv = form.cleaned_data["task_status"]
+            tddv = form.cleaned_data["task_done"]
+            tnov = form.cleaned_data["task_note"]
+            tsdv = form.cleaned_data["task_start_date"]
+            tstv = form.cleaned_data["task_start_time"]
+            tedv = form.cleaned_data["task_end_date"]
+            tetv = form.cleaned_data["task_end_time"]
             # ttv = form.cleaned_data["taskTag"]
             newItem = ListItem(
-                taskName = tnav, 
-                taskDone = tddv, 
-                taskNote = tnov, 
-                taskStartDate = tsdv, 
-                taskStartTime = tstv, 
-                taskEndDate = tedv,
-                taskEndTime = tetv)
+                task_name = tnav,
+                task_status = tsv,
+                task_done = tddv, 
+                task_note = tnov, 
+                task_start_date = tsdv, 
+                task_start_time = tstv, 
+                task_end_date = tedv,
+                task_end_time = tetv)
             newItem.save()
             return HttpResponseRedirect('/')
 
@@ -85,9 +87,9 @@ def tagAdd(response):
     if response.method == 'POST':
         form = TagForm(response.POST)
         if form.is_valid():
-            n = form.cleaned_data["tagName"]
-            c = form.cleaned_data["tagColor"]
-            newTag = Tag(tagName=n, tagColor=c)
+            n = form.cleaned_data["tag_name"]
+            c = form.cleaned_data["tag_color"]
+            newTag = Tag(tag_name=n, tag_color=c)
             newTag.save()
             return HttpResponseRedirect('/')
 

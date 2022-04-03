@@ -1,25 +1,39 @@
+from tkinter import CASCADE
 from django.db import models
 from colorfield.fields import ColorField
+from .widget import *
 
 
 class Tag(models.Model):
-    tagName = models.CharField(max_length=50)
-    tagColor = ColorField(default='#FF0000')
+    tag_name = models.CharField(max_length=50)
+    tag_color = ColorField(default='#FF0000')
 
     def __str__(self):
-        return self.tagName
+        return self.tag_name
+
+
+class Status(models.Model):
+    status = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.status
+
 
 class ListItem(models.Model):
-    taskName = models.CharField(max_length=200)
-    taskBigName = models.CharField(max_length=200)
-    taskDone = models.BooleanField(default=False)
-    taskNote = models.TextField(blank=True)
-    taskStartDate = models.DateField(blank=True)
-    taskStartTime = models.TimeField(blank=True)
-    taskEndDate = models.DateField(blank=True)
-    taskEndTime = models.TimeField(blank=True)
-    taskTags = models.ManyToManyField('Tag', blank=True)
+    task_name = models.CharField(max_length=200)
+    task_status = models.ForeignKey(
+        'Status', 
+        blank=True, 
+        null=True, 
+        on_delete=models.CASCADE
+    )
+    task_done = models.BooleanField(default=False)
+    task_note = models.TextField(blank=True)
+    task_start_date = models.DateTimeField(blank=True)
+    task_start_time = models.TimeField(blank=True)
+    task_end_date = models.DateField(blank=True)
+    task_end_time = models.TimeField(blank=True)
+    task_tags = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self):
-        return self.taskName
-
+        return self.task_name

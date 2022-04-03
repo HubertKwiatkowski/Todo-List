@@ -17,20 +17,20 @@
     <br>
     <h2>List of things to do:</h2>
     {% for tag in tagList %}
-        <button class="{{ tag }} small" style="background-color:{{ tag.tagColor }}">{{ tag }}</button>
+        <button class="{{ tag }} small" style="background-color:{{ tag.tag_color }}">{{ tag }}</button>
     {% endfor %}
     {% for item in itemList %}
 
-        {% if not item.taskDone %}
+        {% if not item.task_done %}
 
         {% endif %}
-        <li class="{% for tag in item.taskTags.all %} {{ tag }}{% endfor %}">
+        <li class="{% for tag in item.task_tags.all %} {{ tag }}{% endfor %}">
             <button class="small remove"><a href="{% url 'task_remove' %}"> - </a></button>
             
             <button class="small done"> * </button>
-            <a href="{% url 'task_view' item.id %}">{{ item.taskName }} ends at {{ item.taskEndDate }} {{ item.taskEndTime }}</a>
-            {% for tag in item.taskTags.all %}
-                <button class="tag" style="background-color:{{ tag.tagColor }}">{{ tag }}</button>
+            <a href="{% url 'task_view' item.id %}">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
+            {% for tag in item.task_tags.all %}
+                <button class="tag" style="background-color:{{ tag.tag_color }}">{{ tag }}</button>
             {% endfor %}
         </li>
 

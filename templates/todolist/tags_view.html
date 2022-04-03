@@ -7,8 +7,8 @@
 
     <div style="margin-bottom: 50px;">
     {% for tag in tagList %}
-        <button class="{{ tag }} small" style="background-color:{{ tag.tagColor }}">
-            <a href="{% url 'tag_view' tag.id %}">{{ tag.tagName }}</a>
+        <button class="{{ tag }} small" style="background-color:{{ tag.tag_color }}">
+            <a href="{% url 'tag_view' tag.id %}">{{ tag.tag_name }}</a>
         </button>
     {% endfor %}
     </div>
