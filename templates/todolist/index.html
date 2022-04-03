@@ -25,9 +25,9 @@
 
         {% endif %}
         <li class="{% for tag in item.task_tags.all %} {{ tag }}{% endfor %}">
-            <button class="small remove"><a href="{% url 'task_remove' %}"> - </a></button>
+            <button class="small remove"><a href="{% url 'task_remove' item.id %}"> Remove </a></button>
             
-            <button class="small done"> * </button>
+            <button class="small done"> Done </button>
             <a href="{% url 'task_view' item.id %}">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
             {% for tag in item.task_tags.all %}
                 <button class="tag" style="background-color:{{ tag.tag_color }}">{{ tag }}</button>

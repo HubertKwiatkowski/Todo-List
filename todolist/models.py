@@ -29,7 +29,7 @@ class ListItem(models.Model):
     )
     task_done = models.BooleanField(default=False)
     task_note = models.TextField(blank=True)
-    task_start_date = models.DateTimeField(blank=True)
+    task_start_date = models.DateField(blank=True)
     task_start_time = models.TimeField(blank=True)
     task_end_date = models.DateField(blank=True)
     task_end_time = models.TimeField(blank=True)

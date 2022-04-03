@@ -8,7 +8,7 @@
     <div class="color" style="background-color: {{ tag.tag_color}};"></div>
 
     <button class="big"><a href="/">Home</a></button>
-    <button class="big"><a href="{% url 'task_remove' %}"> Remove </a></button>
+    <button class="big"><a href="{% url 'tag_remove' tag.id %}"> Remove </a></button>
     <button class="big"><a href="{% url 'tag_edit' tag.id %}"> Edit </a></button>
 
 

@@ -14,11 +14,10 @@
     </div>
 
     <button class="big">
-        <a href="/">Back</a>
+        <a href="{% url 'tag_add' %}">New tag</a>
     </button>
-    <button class="big remove">
-        <a href="{% url 'task_remove' %}"> - </a>
-    </button>            
-    <button class="big done"> * </button>
+    <button class="big">
+        <a href="/">Home</a>
+    </button>
 
 {% endblock %}

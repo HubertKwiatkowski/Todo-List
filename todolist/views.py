@@ -5,6 +5,8 @@ from .models import ListItem, Tag
 from .forms import ItemForm, TagForm
 
 
+""" TASKS management """
+
 def todoList(request):
     tagList = Tag.objects.all()
     itemList = ListItem.objects.all()
@@ -55,6 +57,20 @@ def taskAdd(response):
 
     return render(response, 'todolist/task_add.html', context)
 
+def taskRemove(request, taskremove_id):
+    task = ListItem.objects.get(id=taskremove_id)
+    task.delete()
+    context = {
+        'task': task,
+    }
+    return render(request, 'todolist/task_remove.html', context)
+
+def taskDone(request):
+    pass
+
+
+""" TAGS management """
+
 def tagsView(request):
     tagList = Tag.objects.all()
     context = {
@@ -102,5 +118,10 @@ def tagAdd(response):
 
     return render(response, 'todolist/tag_add.html', context)
 
-def taskRemove(request):
-    return render(request, 'todolist/task_remove.html')
+def tagRemove(request, tagremove_id):
+    tag = Tag.objects.get(id=tagremove_id)
+    tag.delete()
+    context = {
+        'tag': tag,
+    }
+    return render(request, 'todolist/tag_remove.html', context)

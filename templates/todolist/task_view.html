@@ -3,16 +3,17 @@
 {% block title %} Task View {% endblock %}
 
 {% block content %}
-    <h1>Task {{ item.id }}, {{ item.taskName }}</h1>
+    <h1>Task {{ item.id }}, {{ item.task_name }}</h1>
 
-    <p>Starting Date: {{ item.taskStartDate }} {{ item.taskStartTime }}</p>
-    <p>Deadline: {{ item.taskEndDate }} {{ item.taskEndTime }}</p>
-    <p>Status: {{ item.taskStatus }}</p>
+    <p>Starting Date: {{ item.task_start_date }} {{ item.task_start_time }}</p>
+    <p>Deadline: {{ item.task_end_date }} {{ item.task_end_time }}</p>
+    <p>Status: {{ item.task_status }}</p>
 
-    <p>{{ item.taskNote }}</p>
+    <h3>Note:</h3>
+    <p>{{ item.task_note }}</p>
 
     <button class="big"><a href="/">Back</a></button>
-    <button class="big remove"><a href="{% url 'task_remove' %}"> - </a></button>            
-    <button class="big done"> * </button>
+    <button class="big remove"><a href="{% url 'task_remove' item.id %}"> Remove </a></button>            
+    <button class="big"><a href="#"> Task done </a></button>
 
 {% endblock %}

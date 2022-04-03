@@ -20,11 +20,11 @@ class ItemForm(forms.ModelForm):
         model = ListItem
         fields = '__all__'
 
-    task_start_date = forms.DateTimeField(
+    task_start_date = forms.DateField(
         required=False, 
         widget=DatePickerInput,
     )    
-    task_start_time = forms.DateTimeField(
+    task_start_time = forms.TimeField(
         required=False, 
         widget=TimePickerInput
     )
