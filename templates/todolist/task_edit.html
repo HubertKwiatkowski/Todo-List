@@ -1,0 +1,17 @@
+{% extends "todolist/base.html" %}
+
+{% block title %} Edit task {% endblock %}
+
+{% block content %}
+    <h1>Edit task</h1>
+
+    <form action="/tag_edit/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn big" type="submit" value="Update">
+    </form>
+
+
+    <button class="btn big"><a href="/">Back</a></button>
+{% endblock %}
+

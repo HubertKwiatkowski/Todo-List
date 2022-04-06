@@ -35,7 +35,7 @@ def taskAdd(response):
             tstv = form.cleaned_data["task_start_time"]
             tedv = form.cleaned_data["task_end_date"]
             tetv = form.cleaned_data["task_end_time"]
-            # ttv = form.cleaned_data["taskTag"]
+            ttv = form.cleaned_data["task_tags"]
             newItem = ListItem(
                 task_name = tnav,
                 task_status = tsv,
@@ -44,18 +44,31 @@ def taskAdd(response):
                 task_start_date = tsdv, 
                 task_start_time = tstv, 
                 task_end_date = tedv,
-                task_end_time = tetv)
+                task_end_time = tetv,
+                task_tags = ttv
+                )
             newItem.save()
             return HttpResponseRedirect('/')
-
     else:
         form = ItemForm()
-
     context = {
         'form': form,
         }
-
     return render(response, 'todolist/task_add.html', context)
+
+def taskEdit(request, taskedit_id):
+    task = ListItem.objects.get(id=taskedit_id)
+    if request.method == 'GET':
+        form = ItemForm(instance=task)
+    else:
+        form = ItemForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {
+        'form': form,
+    }
+    return render(request, 'todolist/task_edit.html', context)
 
 def taskRemove(request, taskremove_id):
     task = ListItem.objects.get(id=taskremove_id)
@@ -65,9 +78,17 @@ def taskRemove(request, taskremove_id):
     }
     return render(request, 'todolist/task_remove.html', context)
 
-def taskDone(request):
-    pass
-
+def taskDone(request, taskdone_id):
+    task = ListItem.objects.get(id=taskdone_id)
+    if task.task_done == False:
+        task.task_done = True
+    else:
+        task.task_done = False
+    task.save()
+    context = {
+        'task': task,
+    }
+    return render(request, 'todolist/task_done.html', context)
 
 """ TAGS management """
 
@@ -93,11 +114,11 @@ def tagEdit(request, tagedit_id):
         form = TagForm(request.POST, instance=tag)
         if form.is_valid():
             form.save()
-            return redirect('tagEdit')
+            return redirect('tags_view')
     context = {
         'form': form,
     }
-    return render (request, 'todolist/tag_edit.html', context)
+    return render(request, 'todolist/tag_edit.html', context)
 
 def tagAdd(response):
     if response.method == 'POST':
@@ -105,17 +126,17 @@ def tagAdd(response):
         if form.is_valid():
             n = form.cleaned_data["tag_name"]
             c = form.cleaned_data["tag_color"]
-            newTag = Tag(tag_name=n, tag_color=c)
+            newTag = Tag(
+                tag_name=n, 
+                tag_color=c
+            )
             newTag.save()
             return HttpResponseRedirect('/')
-
     else:
         form = TagForm()
-
     context = {
         'form': form,
         }
-
     return render(response, 'todolist/tag_add.html', context)
 
 def tagRemove(request, tagremove_id):

@@ -15,31 +15,49 @@
     <button class="big"><a href="{% url 'tag_add' %}">New tag</a></button>
     <br>
     <br>
-    <h2>List of things to do:</h2>
     {% for tag in tagList %}
-        <button class="{{ tag }} small" style="background-color:{{ tag.tag_color }}">{{ tag }}</button>
+        <button class="{{ tag }} small" style="background-color:{{ tag.tag_color }}"><a href="/">{{ tag }}</a></button>
     {% endfor %}
-    {% for item in itemList %}
-
+    <h2>List of things to do:</h2>
+    {% for item in itemList %}    
         {% if not item.task_done %}
-
+            <li class="{% for tag in item.task_tags.all %} {{ tag }}{% endfor %}">
+                <button class="small">
+                    <a href="{% url 'task_remove' item.id %}"> Remove </a>
+                </button>
+                <button class="small">
+                    <a href="{% url 'task_done' item.id %}"> Done </a>
+                </button>
+                <a href="{% url 'task_view' item.id %}">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
+                {% if item.task_tags %}
+                    <button class="tag" style="background-color:{{ item.task_tags.tag_color }}">{{ item.task_tags.tag_name }}</button>
+                {% endif %}
+            </li>
         {% endif %}
-        <li class="{% for tag in item.task_tags.all %} {{ tag }}{% endfor %}">
-            <button class="small remove"><a href="{% url 'task_remove' item.id %}"> Remove </a></button>
-            
-            <button class="small done"> Done </button>
-            <a href="{% url 'task_view' item.id %}">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
-            {% for tag in item.task_tags.all %}
-                <button class="tag" style="background-color:{{ tag.tag_color }}">{{ tag }}</button>
-            {% endfor %}
-        </li>
-
+    {% endfor %}
+    <h2>Done:</h2>
+    {% for item in itemList %}     
+        {% if item.task_done %}
+            <li class="{% for tag in item.task_tags.all %} {{ tag }}{% endfor %}">
+                <button class="small">
+                    <a href="{% url 'task_remove' item.id %}"> Remove </a>
+                </button>
+                <button class="small">
+                    <a href="{% url 'task_done' item.id %}"> Undo </a>
+                </button>
+                <a href="{% url 'task_view' item.id %}">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
+                {% for tag in item.task_tags.all %}
+                    <button class="tag" style="background-color:{{ tag.tag_color }}">{{ tag }}</button>
+                {% endfor %}
+            </li>
+        {% endif %}
+    {% endfor %}
         <!-- <script>
             const btn = document.querrySelector("button");
             const filterElement = function() {
 
             }
         </script> -->
-    {% endfor %}
+    
 
 {% endblock %}

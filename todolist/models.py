@@ -1,7 +1,13 @@
-from tkinter import CASCADE
 from django.db import models
 from colorfield.fields import ColorField
 from .widget import *
+
+
+# class User(models.Model):
+#     user_name = models.CharField(max_length=200)
+
+#     def __str__(self):
+#         return self.user_name
 
 
 class Tag(models.Model):
@@ -33,7 +39,12 @@ class ListItem(models.Model):
     task_start_time = models.TimeField(blank=True)
     task_end_date = models.DateField(blank=True)
     task_end_time = models.TimeField(blank=True)
-    task_tags = models.ManyToManyField('Tag', blank=True)
+    task_tags = models.ForeignKey(
+        'Tag', 
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.task_name
