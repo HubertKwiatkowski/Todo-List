@@ -1,4 +1,4 @@
-{% extends "todolist/base.html" %}
+{% extends "main/base.html" %}
 
 {% block title %} Tag View {% endblock %}
 
@@ -7,7 +7,7 @@
 
     <div class="color" style="background-color: {{ tag.tag_color}};"></div>
 
-    <button class="big"><a href="/">Home</a></button>
+    <button class="big"><a href="/tasks_view/">Home</a></button>
     <button class="big"><a href="{% url 'tag_remove' tag.id %}"> Remove </a></button>
     <button class="big"><a href="{% url 'tag_edit' tag.id %}"> Edit </a></button>
 

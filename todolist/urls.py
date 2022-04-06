@@ -3,7 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.todoList, name='todolist'),
+    path('', views.mainPage, name='main_page'),
+    path('tasks_view/', views.todoList, name='todolist'),
     path('task_view/<int:taskview_id>/', views.taskView, name='task_view'),
     path('task_add/', views.taskAdd, name='task_add'),
     path('task_edit/<int:taskedit_id>/', views.taskEdit, name='task_edit'),

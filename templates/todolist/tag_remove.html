@@ -1,8 +1,8 @@
-{% extends "todolist/base.html" %}
+{% extends "main/base.html" %}
 
 {% block title %} Remove a tag {% endblock %}
 
 {% block content %}
     <h1>Tag {{ tag.name }} was removed</h1>
-    <button class="big"><a href="/">Back</a></button>
+    <button class="big"><a href="/tasks_view/">Back</a></button>
 {% endblock %}

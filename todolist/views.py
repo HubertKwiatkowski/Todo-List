@@ -1,8 +1,26 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
-from .models import ListItem, Tag
-from .forms import ItemForm, TagForm
+from .models import *
+from .forms import *
+
+""" MAIN APP"""
+def mainPage(request):
+    return render(request, 'main/index.html')
+
+
+""" USERS management """
+
+def userRegistration(request):
+    pass
+
+
+def userLogin(request):
+    pass
+
+
+def userLogout(request):
+    pass
 
 
 """ TASKS management """
@@ -14,7 +32,7 @@ def todoList(request):
         'itemList': itemList,
         'tagList': tagList,
     }
-    return render(request, 'todolist/index.html', context)
+    return render(request, 'todolist/tasks_view.html', context)
 
 def taskView(request, taskview_id):
     item = ListItem.objects.get(id=taskview_id)
@@ -48,7 +66,7 @@ def taskAdd(response):
                 task_tags = ttv
                 )
             newItem.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/tasks_view/')
     else:
         form = ItemForm()
     context = {
@@ -131,7 +149,7 @@ def tagAdd(response):
                 tag_color=c
             )
             newTag.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/tasks_view/')
     else:
         form = TagForm()
     context = {
