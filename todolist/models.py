@@ -1,13 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 from colorfield.fields import ColorField
 from .widget import *
-
-
-# class User(models.Model):
-#     user_name = models.CharField(max_length=200)
-
-#     def __str__(self):
-#         return self.user_name
 
 
 class Tag(models.Model):
@@ -27,6 +21,12 @@ class Status(models.Model):
 
 class ListItem(models.Model):
     task_name = models.CharField(max_length=200)
+    # task_owner = models.ForeignKey(
+    #     'User',
+    #     blank=True,
+    #     null=True,
+    #     on_delete=models.CASCADE
+    # )
     task_status = models.ForeignKey(
         'Status', 
         blank=True, 

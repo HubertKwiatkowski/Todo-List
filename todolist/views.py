@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-
+from django.contrib.auth import login
+from django.contrib import messages
 from .models import *
 from .forms import *
 
@@ -12,7 +13,19 @@ def mainPage(request):
 """ USERS management """
 
 def userRegistration(request):
-    pass
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registraton successful.")
+            return redirect('main_page')
+        messages.error(request, "Unsuccessful registration.")
+    form = NewUserForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'main/register.html', context)
 
 
 def userLogin(request):
@@ -82,7 +95,7 @@ def taskEdit(request, taskedit_id):
         form = ItemForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('/tasks_view/')
     context = {
         'form': form,
     }

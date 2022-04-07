@@ -15,7 +15,8 @@
 
     <div class="color" style="background-color: {{ tag.tag_color }};"></div>
 
-    <button class="big"><a href="/tasks_view/">Home</a></button>
+    <button class="big"><a href="/tasks_view/
+        {% endfor %}">Home</a></button>
     <button class="big"><a href="{% url 'tags_view' %}">Back</a></button>
 
 {% endblock %}
