@@ -1,7 +1,10 @@
-
 <div>
+    {% if user.is_authenticated %}
+    <p>{{ user }}</p>
+    {% endif %}
     <a href="{% url 'main_page' %}">Main page</a>
     <a href="{% url 'todolist' %}">ToDo List</a>
     <a href="#">Notes App</a>
+    <a href="{% url 'user_logout' %}">Logout</a>
 </div>
     

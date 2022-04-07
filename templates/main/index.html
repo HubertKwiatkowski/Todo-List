@@ -4,7 +4,13 @@
 
 {% block content %}
     <h1>Main Page</h1>
-    <button class="big"><a href="{% url 'user_register' %}">Register</a></button>
-    <button class="big"><a href="#">Log in</a></button>
+    {% if not user.is_authenticated %}
+        <button class="big">
+            <a href="{% url 'user_register' %}">Register</a>
+        </button>
+        <button class="big">
+            <a href="{% url 'user_login' %}">Log in</a>
+        </button>
+    {% endif %}
 
 {% endblock %}
