@@ -5,9 +5,9 @@
 {% block content %}
     <h1>Main Page</h1>
     {% if not user.is_authenticated %}
-        <button class="big">
-            <a href="{% url 'user_register' %}">Register</a>
-        </button>
+        <a href="{% url 'user_register' %}">
+            <button class="big">Register</button>
+        </a>
         <button class="big">
             <a href="{% url 'user_login' %}">Log in</a>
         </button>

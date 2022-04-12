@@ -1,18 +1,27 @@
 {% extends "main/base.html" %}
 
+{% load crispy_forms_tags %}
+
+**todolist/tag_add.html**
+
 {% block title %} Add a new task {% endblock %}
 
 {% block content %}
+<div class="container">
     <h1>Add a new tag</h1>
 
     {{ form.media }}
 
     <form action="/tag_add/" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input class="btn big" type="submit" value="Add">
+        <div class="row">
+            <div class="col-3">{{ form.tag_name|as_crispy_field }}</div>
+            <div class="col-2">{{ form.tag_color|as_crispy_field }}</div>
+        </div>
+        <br>
+        <input class="btn btn-secondary" type="submit" value="Add">
     </form>
-
-
-    <button class="btn big"><a href="/tasks_view/">Back</a></button>
+    <br>
+    <a href="/tasks_view/"><button class="btn btn-secondary">Home</button></a>
+</div>
 {% endblock %}

@@ -3,13 +3,13 @@
 {% block title %} Tag View {% endblock %}
 
 {% block content %}
+<div class="container">
     <h1>{{ tag.tag_name }}</h1>
 
     <div class="color" style="background-color: {{ tag.tag_color}};"></div>
 
-    <button class="big"><a href="/tasks_view/">Home</a></button>
-    <button class="big"><a href="{% url 'tag_remove' tag.id %}"> Remove </a></button>
-    <button class="big"><a href="{% url 'tag_edit' tag.id %}"> Edit </a></button>
-
-
+    <button class="btn btn-secondary"><a href="/tasks_view/">Home</a></button>
+    <button class="btn btn-secondary"><a href="{% url 'tag_remove' tag.id %}"> Remove </a></button>
+    <button class="btn btn-secondary"><a href="{% url 'tag_edit' tag.id %}"> Edit </a></button>
+</div>
 {% endblock %}

@@ -21,12 +21,6 @@ class Status(models.Model):
 
 class ListItem(models.Model):
     task_name = models.CharField(max_length=200)
-    # task_owner = models.ForeignKey(
-    #     'User',
-    #     blank=True,
-    #     null=True,
-    #     on_delete=models.CASCADE
-    # )
     task_status = models.ForeignKey(
         'Status', 
         blank=True, 
@@ -34,6 +28,7 @@ class ListItem(models.Model):
         on_delete=models.CASCADE
     )
     task_done = models.BooleanField(default=False)
+    task_trash = models.BooleanField(default=False)
     task_note = models.TextField(blank=True)
     task_start_date = models.DateField(blank=True)
     task_start_time = models.TimeField(blank=True)

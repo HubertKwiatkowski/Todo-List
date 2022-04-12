@@ -52,15 +52,6 @@ def userLogin(request):
     return render(request, 'main/login.html', context)
 
 
-    # username = request.POST.get('username')
-    # password = request.POST.get('password')
-    # user = authenticate(request, username=username, password=password)
-    # if user is not None:
-    #     login(request, user)
-    #     return redirect('user_login')
-    # else:
-    #     return redirect('user_login')
-
 def userLogout(request):
     logout(request)
     return redirect('main_page')

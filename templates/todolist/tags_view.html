@@ -3,21 +3,16 @@
 {% block title %} Tag View {% endblock %}
 
 {% block content %}
+<div class="container">
+    <br>
     <h1>Tag list</h1>
-
-    <div style="margin-bottom: 50px;">
+    <br>
+    <div style="margin-bottom: 20px;">
     {% for tag in tagList %}
-        <button class="{{ tag }} small" style="background-color:{{ tag.tag_color }}">
-            <a href="{% url 'tag_view' tag.id %}">{{ tag.tag_name }}</a>
-        </button>
+        <a href="{% url 'tag_edit' tag.id %}"><button class="{{ tag }} btn" style="background-color:{{ tag.tag_color }}">{{ tag.tag_name }}</button></a>
     {% endfor %}
     </div>
-
-    <button class="big">
-        <a href="{% url 'tag_add' %}">New tag</a>
-    </button>
-    <button class="big">
-        <a href="/tasks_view/">Home</a>
-    </button>
-
+    <a href="{% url 'tag_add' %}"><button class="btn btn-secondary">New tag</button></a>
+    <a href="/tasks_view/"><button class="btn btn-secondary">Home</button></a>
+</div>
 {% endblock %}

@@ -3,15 +3,13 @@
 {% block title %} Edit task {% endblock %}
 
 {% block content %}
+<div class="container">
     <h1>Edit task</h1>
-
-    <form action="" method="post">
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input class="btn big" type="submit" value="Update">
+        <input class="btn" type="submit" value="Update">
     </form>
-
-
-    <button class="btn big"><a href="/tasks_view/"> Home </a></button>
+    <a href="/tasks_view/"><button class="btn btn-secondary">Home</button></a>
+</div>
 {% endblock %}
-

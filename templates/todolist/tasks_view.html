@@ -3,63 +3,71 @@
 {% block title %} Todo List {% endblock %}
 
 {% block content %}
+<div class="container">
     {% if user.is_authenticated %}
+        <br>
         <h1>Todo List</h1>
-        <button class="big"><a href="{% url 'task_add' %}">New task</a></button>
-        <input type="search" name="search" placeholder="name, date, tag" />
-        <input class="btn" type="submit" value="Search" />
-        <button class="big">Hide done</button>
-        <br>
-        <br>
-        <br>
-        <button class="big"><a href="{% url 'tags_view' %}">Tags management</a></button>
-        <button class="big"><a href="{% url 'tag_add' %}">New tag</a></button>
-        <br>
+        <!-- <input type="search" name="search" placeholder="name, date, tag" />
+        <input class="btn" type="submit" value="Search" /> 
+        <button class="big">Hide done</button> -->
         <br>
         {% for tag in tagList %}
-            <button class="{{ tag }} small" style="background-color:{{ tag.tag_color }}"><a href="#">{{ tag }}</a></button>
+            <a href="#"><button class="btn {{ tag }} small button" style="background-color:{{ tag.tag_color }}">{{ tag }}</button></a>
         {% endfor %}
-        <h2>List of things to do:</h2>
+        <br>
+        <br>
+        <a href="{% url 'tags_view' %}"><button class="btn btn-secondary button">Tags management</button></a>
+        <a href="{% url 'tag_add' %}"><button class="btn btn-secondary button">New tag</button></a>
+        <br>
+        <br>
+
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+            <h3>Todo <a href="{% url 'task_add' %}"><button class="btn btn-secondary button">New task</button></a></h3>
+        </div>
         {% for item in itemList %}    
-            {% if not item.task_done %}
-                <li class="{% for tag in item.task_tags.all %} {{ tag }}{% endfor %}">
-                    <button class="small">
-                        <a href="{% url 'task_remove' item.id %}"> Remove </a>
-                    </button>
-                    <button class="small">
-                        <a href="{% url 'task_done' item.id %}"> Done </a>
-                    </button>
-                    <a href="{% url 'task_view' item.id %}">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
+            {% if not item.task_done and not item.task_trash %}
+                <div class="row align-items-start itemlist">
+                    <a href="{% url 'task_done' item.id %}" class="col-1"><button class="btn btn-secondary button">Done</button></a>
+                    <a href="{% url 'task_view' item.id %}"  class="col-5">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
                     {% if item.task_tags %}
-                        <button class="tag" style="background-color:{{ item.task_tags.tag_color }}">{{ item.task_tags.tag_name }}</button>
+                        <button class="btn tag col-2 button" style="background-color:{{ item.task_tags.tag_color }}">{{ item.task_tags.tag_name }}</button>
+                    {% else %}
+                        <!-- <a href="#" class="col-3"><button class="btn btn-secondary">Add a tag</button></a> -->
                     {% endif %}
-                </li>
+                    <div class="col-1"><a href="{% url 'task_remove' item.id %}"><button class="btn btn-warning align-self-end button">Remove</button></a></div>                     
+                </div>
             {% endif %}
         {% endfor %}
-        <h2>Done:</h2>
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+            <h3>Done</h3>
+        </div>
         {% for item in itemList %}     
             {% if item.task_done %}
-                <li class="{% for tag in item.task_tags.all %} {{ tag }}{% endfor %}">
-                    <button class="small">
-                        <a href="{% url 'task_remove' item.id %}"> Remove </a>
-                    </button>
-                    <button class="small">
-                        <a href="{% url 'task_done' item.id %}"> Undo </a>
-                    </button>
-                    <a href="{% url 'task_view' item.id %}">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
-                    {% for tag in item.task_tags.all %}
-                        <button class="tag" style="background-color:{{ tag.tag_color }}">{{ tag }}</button>
-                    {% endfor %}
-                </li>
+                <div class="row ">
+                    <a href="{% url 'task_done' item.id %}" class="col-1"><button class="btn btn-secondary button">Undo</button></a>
+                    <a href="{% url 'task_view' item.id %}"  class="col-5">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
+                    {% if item.task_tags %}
+                        <button class="btn tag col-2 button" style="background-color:{{ item.task_tags.tag_color }}">{{ item.task_tags.tag_name }}</button>
+                    {% endif %}
+                    <div class="col-1 justify-content-md-end"><a href="{% url 'task_remove' item.id %}"><button class="btn btn-danger button">Remove</button></a></div>                     
+                </div>
             {% endif %}
         {% endfor %}
-            <!-- <script>
-                const btn = document.querrySelector("button");
-                const filterElement = function() {
-
-                }
-            </script> -->
-        
-
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+            <h3>Trash</h3>
+        </div>
+        {% for item in itemList %}     
+            {% if item.task_trash %}
+                <div class="row ">
+                    <a href="{% url 'task_done' item.id %}" class="col-1"><button class="btn btn-secondary button">Undo</button></a>
+                    <a href="{% url 'task_view' item.id %}"  class="col-5">{{ item.task_name }} ends at {{ item.task_end_date }} {{ item.task_end_time }}</a>
+                    {% if item.task_tags %}
+                        <button class="btn tag col-2 button" style="background-color:{{ item.task_tags.tag_color }}">{{ item.task_tags.tag_name }}</button>
+                    {% endif %}
+                    <div class="col-1 justify-content-md-end"><a href="{% url 'task_remove' item.id %}"><button class="btn btn-danger button">Remove</button></a></div>                     
+                </div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
+</div>
 {% endblock %}

@@ -32,14 +32,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['sheltered-lowlands-09230.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
     # My apps
-    # 'todolist.apps.TodolistConfig',
     'todolist',
     'colorfield',
+    'crispy_forms',
     
     # Django apps
     'django.contrib.admin',
@@ -49,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -96,7 +97,7 @@ DATABASES = {
 }
 
 # Heroku database config
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 # Password validation
