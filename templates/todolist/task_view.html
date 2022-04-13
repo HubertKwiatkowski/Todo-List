@@ -14,9 +14,9 @@
     <h3>Note:</h3>
     <p>{{ item.task_note }}</p>
 
-    <button class="big"><a href="/tasks_view/"> Home </a></button>
-    <button class="big"><a href="{% url 'task_remove' item.id %}"> Remove </a></button>            
-    <button class="big"><a href="{% url 'task_done' item.id %}"> Task done </a></button>
-    <button class="big"><a href="{% url 'task_edit' item.id %}"> Edit </a></button>
+    <a href="/tasks_view/"><button class="btn btn-secondary">Home</button></a>
+    <a href="{% url 'task_remove' item.id %}"><button class="btn btn-secondary">Remove</button></a>        
+    <a href="{% url 'task_done' item.id %}"><button class="btn btn-secondary">Task done</button></a>
+    <a href="{% url 'task_edit' item.id %}"><button class="btn btn-secondary">Edit</button></a>
 </div>
 {% endblock %}

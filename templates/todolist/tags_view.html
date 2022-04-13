@@ -9,7 +9,7 @@
     <br>
     <div style="margin-bottom: 20px;">
     {% for tag in tagList %}
-        <a href="{% url 'tag_edit' tag.id %}"><button class="{{ tag }} btn" style="background-color:{{ tag.tag_color }}">{{ tag.tag_name }}</button></a>
+        <a href="{% url 'tag_edit' tag.id %}"><button class="{{ tag }} btn-sm" style="background-color:{{ tag.tag_color }}">{{ tag.tag_name }}</button></a>
     {% endfor %}
     </div>
     <a href="{% url 'tag_add' %}"><button class="btn btn-secondary">New tag</button></a>

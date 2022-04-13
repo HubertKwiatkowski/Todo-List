@@ -29,7 +29,6 @@ def userRegistration(request):
     }
     return render(request, 'main/register.html', context)
 
-
 def userLogin(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
@@ -56,20 +55,25 @@ def userLogout(request):
     logout(request)
     return redirect('main_page')
 
-
 """ TASKS management """
 
 def todoList(request):
     tagList = Tag.objects.all()
     itemList = ListItem.objects.all()
+    itemCount = ListItem.objects.filter(task_done=False).filter(task_trash=False)
+    doneCount = ListItem.objects.filter(task_done=True).filter(task_trash=False)
+    trashCount = ListItem.objects.filter(task_trash=True)
     context = {
         'itemList': itemList,
         'tagList': tagList,
+        'itemCount': itemCount,
+        'doneCount': doneCount,
+        'trashCount': trashCount,
     }
     return render(request, 'todolist/tasks_view.html', context)
 
-def taskView(request, taskview_id):
-    item = ListItem.objects.get(id=taskview_id)
+def taskView(request, taskView_id):
+    item = ListItem.objects.get(id=taskView_id)
     context = {
         'item': item,
     }
@@ -108,8 +112,8 @@ def taskAdd(response):
         }
     return render(response, 'todolist/task_add.html', context)
 
-def taskEdit(request, taskedit_id):
-    task = ListItem.objects.get(id=taskedit_id)
+def taskEdit(request, taskEdit_id):
+    task = ListItem.objects.get(id=taskEdit_id)
     if request.method == 'GET':
         form = ItemForm(instance=task)
     else:
@@ -122,25 +126,35 @@ def taskEdit(request, taskedit_id):
     }
     return render(request, 'todolist/task_edit.html', context)
 
-def taskRemove(request, taskremove_id):
-    task = ListItem.objects.get(id=taskremove_id)
-    task.delete()
-    context = {
-        'task': task,
-    }
-    return render(request, 'todolist/task_remove.html', context)
+def taskRemove(request, taskRemove_id):
+    task = ListItem.objects.get(id=taskRemove_id)
+    if task.task_trash == False:
+        task.task_trash = True
+    else:
+        task.trash = False
+    task.save()
+    return HttpResponseRedirect('/tasks_view/')
 
-def taskDone(request, taskdone_id):
-    task = ListItem.objects.get(id=taskdone_id)
+def taskUndoRemove(request, taskUndoRemove_id):
+    task = ListItem.objects.get(id=taskUndoRemove_id)
+    task.task_trash = False
+    task.save()
+    return HttpResponseRedirect('/tasks_view/')
+
+def taskPermaRemove(request, taskPermaRemove_id):
+    task = ListItem.objects.get(id=taskPermaRemove_id)
+    if task.task_trash == True:
+        task.delete()
+    return HttpResponseRedirect('/tasks_view/')
+
+def taskDone(request, taskDone_id):
+    task = ListItem.objects.get(id=taskDone_id)
     if task.task_done == False:
         task.task_done = True
     else:
         task.task_done = False
     task.save()
-    context = {
-        'task': task,
-    }
-    return render(request, 'todolist/task_done.html', context)
+    return HttpResponseRedirect('/tasks_view/')
 
 """ TAGS management """
 
@@ -151,15 +165,15 @@ def tagsView(request):
     }
     return render(request, 'todolist/tags_view.html', context)
 
-def tagView(request, tagview_id):
-    tag = Tag.objects.get(id=tagview_id)
+def tagView(request, tagView_id):
+    tag = Tag.objects.get(id=tagView_id)
     context = {
         'tag': tag,
     }
     return render(request, 'todolist/tag_view.html', context)
 
-def tagEdit(request, tagedit_id):
-    tag = Tag.objects.get(id=tagedit_id)
+def tagEdit(request, tagEdit_id):
+    tag = Tag.objects.get(id=tagEdit_id)
     if request.method == 'GET':
         form = TagForm(instance=tag)
     else:
@@ -191,10 +205,7 @@ def tagAdd(response):
         }
     return render(response, 'todolist/tag_add.html', context)
 
-def tagRemove(request, tagremove_id):
-    tag = Tag.objects.get(id=tagremove_id)
+def tagRemove(request, tagRemove_id):
+    tag = Tag.objects.get(id=tagRemove_id)
     tag.delete()
-    context = {
-        'tag': tag,
-    }
-    return render(request, 'todolist/tag_remove.html', context)
+    return HttpResponseRedirect('/tags_view/')
